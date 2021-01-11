@@ -36,6 +36,8 @@ public class MonthListActivity extends AppCompatActivity {
         setContentView(R.layout.month_group_activity);
 
         setupActivity();
+
+
     }
 
     private void setupActivity() {
