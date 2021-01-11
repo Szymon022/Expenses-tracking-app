@@ -1,2 +1,4 @@
 # Expenses-tracking-app
-App for tracking expenses and incomes
+App for tracking expenses and incomes.
+
+Features:

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Expenses app</string>
+    <string name="buttonAddMonth">Add new month</string>
+    <string name="add">Add</string>
+    <string name="name_new_month">Name new month</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove_month">Remove month</string>
+    <string name="edit_month_name">Edit month name</string>
+</resources>
