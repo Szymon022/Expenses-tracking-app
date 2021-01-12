@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -23,12 +24,15 @@ import java.util.Objects;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
 
-public class MonthListActivity extends AppCompatActivity {
+public class MonthListActivity extends AppCompatActivity
+        implements ActionBottomDialogFragment.ItemClickListener{
+
     private ArrayList<Month> monthArrayList;
     private FloatingActionButton fbtAddMonth;
     private ListView lvMonthList;
     private MonthListAdapter monthListAdapter;
     private Dialog addItemDialog;
+    private ActionBottomDialogFragment itemOptionsBottomSheetDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,6 @@ public class MonthListActivity extends AppCompatActivity {
         setContentView(R.layout.month_group_activity);
 
         setupActivity();
-
-
     }
 
     private void setupActivity() {
@@ -46,6 +48,7 @@ public class MonthListActivity extends AppCompatActivity {
         setupFloatingActionButton();
 
         setupDialog();
+        setupBottomSheet();
     }
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
@@ -80,14 +83,14 @@ public class MonthListActivity extends AppCompatActivity {
 
     private void setupLvItemLongClick() {
         lvMonthList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            /*TODO: implement on item long click listener to display bottom
-            *  sheet dialog with edit month name and delete month
-            *
-            * */
+
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
+                Month month = (Month)parent.getItemAtPosition(position);
+                ActionBottomDialogFragment.setMonthItem(month);
+                showBottomSheet();
+                return true;
             }
         });
     }
@@ -135,6 +138,19 @@ public class MonthListActivity extends AppCompatActivity {
         });
     }
 
+    private void setupBottomSheet() {
+        itemOptionsBottomSheetDialogFragment = ActionBottomDialogFragment.newInstance();
+    }
+
+    private void showBottomSheet() {
+        itemOptionsBottomSheetDialogFragment.show(getSupportFragmentManager(),
+                ActionBottomDialogFragment.TAG);
+    }
+
+    private void hideBottomSheet() {
+        itemOptionsBottomSheetDialogFragment.dismiss();
+    }
+
     private void addListItem(String monthName) {
         monthArrayList.add(new Month(monthName));
         monthListAdapter.notifyDataSetChanged();
@@ -147,5 +163,16 @@ public class MonthListActivity extends AppCompatActivity {
                 .setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
+    @Override
+    public void onItemClickEditMonthName(Month month) {
+        //TODO: implement month name editing feature
+    }
+
+    @Override
+    public void onItemClickDeleteMonth(Month month) {
+        monthArrayList.remove(month);
+        monthListAdapter.notifyDataSetChanged();
+        hideBottomSheet();
+    }
 }
 

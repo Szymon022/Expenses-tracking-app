@@ -6,15 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@drawable/options_bottom_sheet_background">
+    android:padding="8dp">
 
     <LinearLayout
         android:id="@+id/ll_edit_month_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"        >
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -22,8 +21,7 @@
             android:src="@drawable/ic_edit"
             android:contentDescription="@string/app_name"
             app:tint="@color/white"
-            android:layout_marginStart="6dp"
-            />
+            android:layout_marginStart="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
